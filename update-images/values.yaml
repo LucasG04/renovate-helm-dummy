@@ -1,19 +1,7 @@
-# Renovate won't pick up this schema
-# images:
-#   - repository: 'ghcr.io/fluxcd/helm-controller'
-#     internalRepository: 'my-docker.io/fluxcd/helm-controller'
-#     tag: 'v1.1.0'
-#     promotable: false
-#   - repository: 'ghcr.io/fluxcd/image-automation-controller'
-#     internalRepository: 'my-docker.io/fluxcd/image-automation-controller'
-#     tag: 'v0.37.1'
-#     promotable: true
-#   - repository: 'ghcr.io/fluxcd/source-controller'
-#     internalRepository: 'my-docker.io/fluxcd/source-controller'
-#     tag: 'v1.5.0'
-#     promotable: true
-
-# Renove will pick up this
-# coreImage:
-#   repository: 'ghcr.io/fluxcd/helm-controller'
-#   tag: 'v1.1.0'
+# Internal images that will be built and pushed to the internal registry
+# The `promotable` field is used to determine if the image should be promoted to the internal prod registry
+images:
+  - repository: 'my-docker.io/fluxcd/helm-controller'
+    promotable: false
+  - repository: 'my-docker.io/fluxcd/image-automation-controller'
+    promotable: true

@@ -4,31 +4,31 @@ metadata:
   name: image-build-and-promote
 spec:
   tasks:
-    - name: build-images
+{{- range $index, $image := .Values.images }}
+    - name: build-image-{{ $index }}
+      params:
+        - name: image
+          value: "{{ $image.repository }}:latest"
       taskSpec:
         params:
-          - name: images
-            type: array
+          - name: image
+            type: string
         steps:
-          - name: build-images
+          - name: build-image
             image: alpine
             script: |
               #!/bin/sh
-              for image in $(params.images[@]); do
-                echo "Building image: $image"
-                # Add your image build logic here
-              done
-        params:
-          - name: images
-            value:
-              {{- range $image := .Values.images }}
-              - {{ printf "%s:%s" $image.internalRepository $image.tag }}
-              {{- end }}
+              echo "Building image: $(params.image)"
+              # Add your image build logic here
+{{- end }}
 {{- range $index, $image := .Values.images }}
 {{- if $image.promotable }}
     - name: promote-image-{{ $index }}
+      params:
+        - name: image-to-promote
+          value: "{{ $image.repository }}:latest"
       runAfter:
-        - build-images
+        - build-image-{{ $index }}
       taskSpec:
         params:
           - name: image-to-promote
@@ -38,10 +38,7 @@ spec:
             image: alpine
             script: |
               #!/bin/sh
-              echo "Promoting image: {{ $image.internalRepository }}:{{ $image.tag }}"
+              echo "Promoting image: $(params.image-to-promote)"
               # Add your image promotion logic here
-        params:
-          - name: image-to-promote
-            value: "{{ $image.internalRepository }}:{{ $image.tag }}"
 {{- end }}
 {{- end }}
