@@ -11,3 +11,7 @@ images:
     internalRepository: 'my-docker.io/fluxcd/source-controller'
     tag: 'v1.5.0'
     promotable: true
+
+coreImage:
+  repository: 'ghcr.io/fluxcd/helm-controller'
+  tag: 'v1.1.0'
