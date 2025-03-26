@@ -1,0 +1,1 @@
+FROM ghcr.io/fluxcd/image-automation-controller:v0.37.1

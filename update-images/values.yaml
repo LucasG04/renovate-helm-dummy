@@ -1,17 +1,19 @@
-images:
-  - repository: 'ghcr.io/fluxcd/helm-controller'
-    internalRepository: 'my-docker.io/fluxcd/helm-controller'
-    tag: 'v1.1.0'
-    promotable: false
-  - repository: 'ghcr.io/fluxcd/image-automation-controller'
-    internalRepository: 'my-docker.io/fluxcd/image-automation-controller'
-    tag: 'v0.37.1'
-    promotable: true
-  - repository: 'ghcr.io/fluxcd/source-controller'
-    internalRepository: 'my-docker.io/fluxcd/source-controller'
-    tag: 'v1.5.0'
-    promotable: true
+# Renovate won't pick up this schema
+# images:
+#   - repository: 'ghcr.io/fluxcd/helm-controller'
+#     internalRepository: 'my-docker.io/fluxcd/helm-controller'
+#     tag: 'v1.1.0'
+#     promotable: false
+#   - repository: 'ghcr.io/fluxcd/image-automation-controller'
+#     internalRepository: 'my-docker.io/fluxcd/image-automation-controller'
+#     tag: 'v0.37.1'
+#     promotable: true
+#   - repository: 'ghcr.io/fluxcd/source-controller'
+#     internalRepository: 'my-docker.io/fluxcd/source-controller'
+#     tag: 'v1.5.0'
+#     promotable: true
 
-coreImage:
-  repository: 'ghcr.io/fluxcd/helm-controller'
-  tag: 'v1.1.0'
+# Renove will pick up this
+# coreImage:
+#   repository: 'ghcr.io/fluxcd/helm-controller'
+#   tag: 'v1.1.0'
