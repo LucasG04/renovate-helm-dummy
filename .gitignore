@@ -1,0 +1,21 @@
+# Ignore Helm-related files
+*.tgz
+tmpcharts/
+
+# Ignore IDE-specific files
+.idea/
+.vscode/
+*.tmproj
+.project
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore temporary files
+*.swp
+*.bak
+*.tmp
+*.orig
+*~
+chart.yml

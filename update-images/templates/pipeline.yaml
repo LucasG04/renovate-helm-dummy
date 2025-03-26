@@ -1,0 +1,47 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: image-build-and-promote
+spec:
+  tasks:
+    - name: build-images
+      taskSpec:
+        params:
+          - name: images
+            type: array
+        steps:
+          - name: build-images
+            image: alpine
+            script: |
+              #!/bin/sh
+              for image in $(params.images[@]); do
+                echo "Building image: $image"
+                # Add your image build logic here
+              done
+        params:
+          - name: images
+            value:
+              {{- range $image := .Values.images }}
+              - {{ printf "%s:%s" $image.internalRepository $image.tag }}
+              {{- end }}
+{{- range $index, $image := .Values.images }}
+{{- if $image.promotable }}
+    - name: promote-image-{{ $index }}
+      runAfter:
+        - build-images
+      taskSpec:
+        params:
+          - name: image-to-promote
+            type: string
+        steps:
+          - name: promote-image
+            image: alpine
+            script: |
+              #!/bin/sh
+              echo "Promoting image: {{ $image.internalRepository }}:{{ $image.tag }}"
+              # Add your image promotion logic here
+        params:
+          - name: image-to-promote
+            value: "{{ $image.internalRepository }}:{{ $image.tag }}"
+{{- end }}
+{{- end }}
